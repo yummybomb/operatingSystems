@@ -1,10 +1,13 @@
 /*
 * Add NetID and names of all project partners
+* NHC29
 *
 */
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 
 
 #define BITMAP_SIZE 4 //size of the bitmap array
@@ -16,10 +19,18 @@ static unsigned int myaddress = 4026544704;   // Binary  would be 11110000000000
 /*
  * Function 1: FIND FIRST SET (FROM LSB) BIT
  */
+static unsigned int log2i(unsigned int n) 
+{ 
+    if (n > 1){
+        return 1 + log2i(n/2);
+    }
+    return 0;
+} 
+
 static unsigned int first_set_bit(unsigned int num)
 {
 	//Implement your code here
-
+    return log2i(num & -num);
 }
 
 
@@ -30,8 +41,14 @@ static unsigned int first_set_bit(unsigned int num)
 static void set_bit_at_index(char *bitmap, int index)
 {
     //Implement your code here
+    int byte_index = index / 8; 
+    int bit_index = index % 8; 
+
+    bitmap[byte_index] |= (1 << bit_index);
 
     return;
+
+
 }
 
 
@@ -43,6 +60,10 @@ static int get_bit_at_index(char *bitmap, int index)
 {
     //Get to the location in the character bitmap array
     //Implement your code here
+    int byte_index = index / 8; 
+    int bit_index = index % 8; 
+
+    return (bitmap[byte_index] & (1 << bit_index)) != 0; 
 
 }
 
