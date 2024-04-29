@@ -24,11 +24,12 @@ void *add_counter(void *arg) {
     int i;
 
     /* Add thread synchronizaiton logic in this function */	
-    pthread_mutex_lock(&mutex);
+
     for(i = 0; i < loop; i++){
+        pthread_mutex_lock(&mutex);
 	    x = x + 1;
+        pthread_mutex_unlock(&mutex);
     }
-    pthread_mutex_unlock(&mutex);
 
     return NULL;
 }
